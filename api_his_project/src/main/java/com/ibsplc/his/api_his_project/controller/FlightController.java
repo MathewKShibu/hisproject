@@ -3,6 +3,8 @@ package com.ibsplc.his.api_his_project.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,15 +55,25 @@ public class FlightController {
 	}
 	
 	@PostMapping("/addflightdetails")
-	public void insertFlightDetails(@RequestBody FlightDetails flightDetails)
+	public ResponseEntity<String> insertFlightDetails(@RequestBody FlightDetails flightDetails)
 	{
+		System.out.println(flightDetails);
+		String addStatus="{\"Status\":\"Success\"}";
+		ResponseEntity<String> newFlightEntity=null;
 		flightService.addFlightDetails(flightDetails);
+		newFlightEntity=new ResponseEntity<String>(addStatus,HttpStatus.CREATED);
+		return newFlightEntity;
 	}
 	
 	@PostMapping("/addmaintenancedetails")
-	public void insertMaintenanceDetails(@RequestBody FlightMaintenance flightMaintenance)
+	public  ResponseEntity<String> insertMaintenanceDetails(@RequestBody FlightMaintenance flightMaintenance)
 	{
+		System.out.println(flightMaintenance);
+		String addStatus="{\"Status\":\"Success\"}";
+		ResponseEntity<String> newMaintenanceEntity=null;
 		flightService.addMaintenanceDetails(flightMaintenance);
+		newMaintenanceEntity=new ResponseEntity<String>(addStatus,HttpStatus.CREATED);
+		return newMaintenanceEntity;
 	}
 
 }
