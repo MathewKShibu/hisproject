@@ -33,6 +33,7 @@ public interface GetMapper {
 			+"`flight_maintenance`.`maintenance_type`,"
 			+"`flight_maintenance`.`maintenance_date`,"
 			+"`flight_maintenance`.`maintenance_estimate_time`"
+			+"`flight_maintenance`.`status_in_percent`"
 			+"from"
 			+"`flight_details`"
 			+"inner join"
@@ -56,9 +57,10 @@ public interface GetMapper {
 			+"flight_id,"
 			+"maintenance_type,"
 			+"maintenance_date,"
-			+"maintenance_estimate_time)"
+			+"maintenance_estimate_time,"
+			+"status_in_percent)"
 			+"values"
-			+"(#{flightMaintenance.maintenance_id},#{flightMaintenance.flight_id},#{flightMaintenance.maintenance_type},#{flightMaintenance.maintenance_date},#{flightMaintenance.maintenance_estimate_time})")
+			+"(#{flightMaintenance.maintenance_id},#{flightMaintenance.flight_id},#{flightMaintenance.maintenance_type},#{flightMaintenance.maintenance_date},#{flightMaintenance.maintenance_estimate_time},#{flightMaintenance.status_in_percent})")
 	void addMaintenanceDetails(@Param("flightMaintenance") FlightMaintenance flightMaintenance);
 	
 }

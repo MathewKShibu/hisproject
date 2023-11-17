@@ -8,14 +8,17 @@ public class FlightExpandedInfo {
 	private String maintenance_type;
 	private String maintenance_date;
 	private int maintenance_estimate_time;
+	private int status_in_percent;
 	
 	public FlightExpandedInfo()
 	{
 		
 	}
+	
+	
 
 	public FlightExpandedInfo(int flight_id, String flight_number, String aircraft_type, int maintenance_id,
-			String maintenance_type, String maintenance_date, int maintenance_estimate_time) {
+			String maintenance_type, String maintenance_date, int maintenance_estimate_time, int status_in_percent) {
 		super();
 		this.flight_id = flight_id;
 		this.flight_number = flight_number;
@@ -24,7 +27,10 @@ public class FlightExpandedInfo {
 		this.maintenance_type = maintenance_type;
 		this.maintenance_date = maintenance_date;
 		this.maintenance_estimate_time = maintenance_estimate_time;
+		this.status_in_percent = status_in_percent;
 	}
+
+
 
 	public int getFlight_id() {
 		return flight_id;
@@ -81,15 +87,21 @@ public class FlightExpandedInfo {
 	public void setMaintenance_estimate_time(int maintenance_estimate_time) {
 		this.maintenance_estimate_time = maintenance_estimate_time;
 	}
+	
+	public int getStatus_in_percent() {
+		return status_in_percent;
+	}
+
+	public void setStatus_in_percent(int status_in_percent) {
+		this.status_in_percent = status_in_percent;
+	}
 
 	@Override
 	public String toString() {
 		return "FlightExpandedInfo [flight_id=" + flight_id + ", flight_number=" + flight_number + ", aircraft_type="
 				+ aircraft_type + ", maintenance_id=" + maintenance_id + ", maintenance_type=" + maintenance_type
-				+ ", maintenance_date=" + maintenance_date + ", maintenance_estimate_time="
-				+ maintenance_estimate_time + "]";
+				+ ", maintenance_date=" + maintenance_date + ", maintenance_estimate_time=" + maintenance_estimate_time
+				+ ", status_in_percent=" + status_in_percent + "]";
 	}
 	
-	
-
 }
