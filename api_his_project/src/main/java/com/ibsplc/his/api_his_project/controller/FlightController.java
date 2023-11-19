@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,6 +75,28 @@ public class FlightController {
 		flightService.addMaintenanceDetails(flightMaintenance);
 		newMaintenanceEntity=new ResponseEntity<String>(addStatus,HttpStatus.CREATED);
 		return newMaintenanceEntity;
+	}
+	
+	@DeleteMapping("/deleteflightdetails/{flight_id}")
+	public ResponseEntity<String> deleteflightdetails(@PathVariable int flight_id)
+	{
+		String deleteStatus="{\"Status\":\"Success\"}";
+		ResponseEntity<String> newMaintenanceEntity=null;
+		flightService.deleteFlightDetails(flight_id);
+		newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		return newMaintenanceEntity;
+
+	}
+	
+	@DeleteMapping("/deletemaintenancedetails/{maintenance_id}")
+	public ResponseEntity<String> maintenancedetails(@PathVariable int maintenance_id)
+	{
+		String deleteStatus="{\"Status\":\"Success\"}";
+		ResponseEntity<String> newMaintenanceEntity=null;
+		flightService.deleteMaintenanceDetails(maintenance_id);
+		newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		return newMaintenanceEntity;
+
 	}
 
 }

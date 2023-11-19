@@ -111,4 +111,31 @@ public class FlightServiceImpl implements FlightService {
     		e.printStackTrace();
     	}
 	}
+
+	@Override
+	public void deleteFlightDetails(int flight_id) {
+		try
+		{
+			getMapper.deleteFlightDetails(flight_id);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void deleteMaintenanceDetails(int maintenance_id) {
+		try
+		{
+			getMapper.deleteMaintenanceDetails(maintenance_id);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+	}
 }

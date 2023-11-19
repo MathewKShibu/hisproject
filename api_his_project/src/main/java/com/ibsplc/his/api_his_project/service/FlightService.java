@@ -15,5 +15,7 @@ public interface FlightService {
 	
 	public void addFlightDetails(FlightDetails flightDetails);
 	public void addMaintenanceDetails(FlightMaintenance flightMaintenance);
+	public void deleteFlightDetails(int flight_id);
+	public void deleteMaintenanceDetails(int maintenance_id);
 
 }

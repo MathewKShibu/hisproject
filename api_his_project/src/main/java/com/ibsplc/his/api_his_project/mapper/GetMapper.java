@@ -2,6 +2,7 @@ package com.ibsplc.his.api_his_project.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,7 +33,7 @@ public interface GetMapper {
 			+"`flight_maintenance`.`maintenance_id`,"
 			+"`flight_maintenance`.`maintenance_type`,"
 			+"`flight_maintenance`.`maintenance_date`,"
-			+"`flight_maintenance`.`maintenance_estimate_time`"
+			+"`flight_maintenance`.`maintenance_estimate_time`,"
 			+"`flight_maintenance`.`status_in_percent`"
 			+"from"
 			+"`flight_details`"
@@ -62,5 +63,11 @@ public interface GetMapper {
 			+"values"
 			+"(#{flightMaintenance.maintenance_id},#{flightMaintenance.flight_id},#{flightMaintenance.maintenance_type},#{flightMaintenance.maintenance_date},#{flightMaintenance.maintenance_estimate_time},#{flightMaintenance.status_in_percent})")
 	void addMaintenanceDetails(@Param("flightMaintenance") FlightMaintenance flightMaintenance);
+	
+	@Delete("Delete from flight_details where flight_id=#{flight_id}")
+	void deleteFlightDetails(@Param("flight_id") int flight_id);
+	
+	@Delete("Delete from flight_maintenance where maintenance_id=#{maintenance_id}")
+	void deleteMaintenanceDetails(@Param("maintenance_id") int maintenance_id);
 	
 }
