@@ -2,6 +2,7 @@ package com.ibsplc.his.api_his_project.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class FlightServiceImpl implements FlightService {
 		try
 		{
 			fd=getMapper.getFlightDetails();
+			if(fd.isEmpty())
+			{
+				throw new FlightDetailsNotFoundException("No flight details found");
+			}
 		}
 		catch(Exception e)
 		{
@@ -32,17 +37,25 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public FlightDetails getFlightDetailsByFlight_id(int flight_id) {
-		FlightDetails fdid = null;
+	public List<FlightDetails> getFlightDetailsByFlight_id(int flight_id) {
+		//FlightDetails fdid = null;
+		List<FlightDetails> flightdetails=new ArrayList<FlightDetails>();
 		try
 		{
-			fdid=getMapper.getFlightDetailsByFlight_id(flight_id);
+			//fdid=getMapper.getFlightDetailsByFlight_id(flight_id);
+			flightdetails=getMapper.getFlightDetails().stream()
+					      .filter(flightinfo->flightinfo.getFlight_id()==flight_id)
+					      .collect(Collectors.toList());
+			if(flightdetails.isEmpty())
+			{
+				throw new FlightDetailsNotFoundException("No flight details flound on given flight_id");
+			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		return fdid;
+		return flightdetails;
 	}
 
 	@Override
@@ -50,7 +63,11 @@ public class FlightServiceImpl implements FlightService {
 		List<FlightMaintenance> fmd=new ArrayList<FlightMaintenance>();
 		try
 		{
-		fmd=getMapper.getFlightMaintenanceDetails();
+			fmd=getMapper.getFlightMaintenanceDetails();
+			if(fmd.isEmpty())
+			{
+				throw new FlightDetailsNotFoundException("No maintenance details found");
+			}
 		}
 		catch(Exception e)
 		{
@@ -60,17 +77,25 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public FlightMaintenance getFlightMaintenanceDetailsByMaintenance_id(int maintenance_id) {
-		FlightMaintenance fmdid=null;
+	public List<FlightMaintenance> getFlightMaintenanceDetailsByMaintenance_id(int maintenance_id) {
+		//FlightMaintenance fmdid=null;
+		List<FlightMaintenance> maintenancedetails=new ArrayList<FlightMaintenance>();
 		try
 		{
-		fmdid=getMapper.getFlightMaintenanceDetailsByMaintenance_id(maintenance_id);
+			//fmdid=getMapper.getFlightMaintenanceDetailsByMaintenance_id(maintenance_id);
+			maintenancedetails=getMapper.getFlightMaintenanceDetails().stream()
+							   .filter(maintenanceinfo->maintenanceinfo.getMaintenance_id()==maintenance_id)
+							   .collect(Collectors.toList());
+			if(maintenancedetails.isEmpty())
+			{
+				throw new FlightDetailsNotFoundException("No maintenance details found on given maintenance_id");
+			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		return fmdid;
+		return maintenancedetails;
 	}
 
 	@Override
@@ -78,7 +103,11 @@ public class FlightServiceImpl implements FlightService {
 		List<FlightExpandedInfo> ei=new ArrayList<FlightExpandedInfo>();
 		try
 		{
-		ei=getMapper.getExpandedFlightInfo();
+			ei=getMapper.getExpandedFlightInfo();
+			if(ei.isEmpty())
+			{
+				throw new FlightDetailsNotFoundException("Expanded info not found");
+			}
 		}
 		catch(Exception e)
 		{
@@ -88,23 +117,26 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public void addFlightDetails(FlightDetails flightDetails) {
+	public boolean addFlightDetails(FlightDetails flightDetails) {
+		boolean test;
 		try
 		{
+			test=true;
 			getMapper.addFlightDetails(flightDetails);
 		}
 		catch(Exception e)
 		{
+			test=false;
 			e.printStackTrace();
 		}
-		
+		return test;
 	}
 	
     @Override
 	public void addMaintenanceDetails(FlightMaintenance flightMaintenance) {
     	try
     	{
-		getMapper.addMaintenanceDetails(flightMaintenance);	
+    		getMapper.addMaintenanceDetails(flightMaintenance);	
     	}
     	catch(Exception e)
     	{
@@ -136,6 +168,19 @@ public class FlightServiceImpl implements FlightService {
 			e.printStackTrace();
 		}
 		
+		
+	}
+
+	@Override
+	public void updateMaintenanceDetails(int maintenance_id, FlightMaintenance flightMaintenance) {
+		try
+		{
+			getMapper.updateMaintenanceDetails(maintenance_id, flightMaintenance);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 }

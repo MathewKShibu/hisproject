@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.ibsplc.his.api_his_project.model.FlightDetails;
 import com.ibsplc.his.api_his_project.model.FlightExpandedInfo;
@@ -17,14 +18,14 @@ public interface GetMapper {
 	@Select("Select * from flight_details" )
 	List<FlightDetails> getFlightDetails();
 	
-	@Select("Select * from flight_details where flight_id=#{flight_id}")
-	FlightDetails getFlightDetailsByFlight_id( @Param("flight_id")int flight_id);
+	//@Select("Select * from flight_details where flight_id=#{flight_id}")
+	//FlightDetails getFlightDetailsByFlight_id( @Param("flight_id")int flight_id);
 	
-	@Select("Select * from flight_maintenance")
+	@Select("Select * from fligh_maintenance")
 	List<FlightMaintenance> getFlightMaintenanceDetails();
 	
-	@Select("Select * from flight_maintenance where maintenance_id=#{maintenance_id}")
-	FlightMaintenance getFlightMaintenanceDetailsByMaintenance_id(@Param("maintenance_id") int maintenanace_id);
+	//@Select("Select * from flight_maintenance where maintenance_id=#{maintenance_id}")
+	//FlightMaintenance getFlightMaintenanceDetailsByMaintenance_id(@Param("maintenance_id") int maintenanace_id);
 	
 	@Select("select" 
 			+"`flight_details`.`flight_id`,"
@@ -70,4 +71,6 @@ public interface GetMapper {
 	@Delete("Delete from flight_maintenance where maintenance_id=#{maintenance_id}")
 	void deleteMaintenanceDetails(@Param("maintenance_id") int maintenance_id);
 	
+	@Update("Update flight_maintenance set status_in_percent=#{flightMaintenance.status_in_percent} where maintenance_id=#{maintenance_id}")
+	void updateMaintenanceDetails(@Param("maintenance_id")int maintenance_id,@Param("flightMaintenance") FlightMaintenance flightMaintenance);
 }

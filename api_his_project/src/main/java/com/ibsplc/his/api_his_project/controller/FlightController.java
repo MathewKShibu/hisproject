@@ -32,7 +32,7 @@ public class FlightController {
 	}
 	
 	@GetMapping("/flightdetails/{flight_id}")
-	public FlightDetails showFlightDetailsById(@PathVariable int flight_id) 
+	public List<FlightDetails> showFlightDetailsById(@PathVariable int flight_id) 
 	{
 		return flightService.getFlightDetailsByFlight_id(flight_id);
 	}
@@ -44,7 +44,7 @@ public class FlightController {
 	}
 	
 	@GetMapping("/maintenancedetails/{maintenance_id}")
-	public FlightMaintenance showMaintenanceDetailsById(@PathVariable int maintenance_id) 
+	public List<FlightMaintenance> showMaintenanceDetailsById(@PathVariable int maintenance_id) 
 	{
 		return flightService.getFlightMaintenanceDetailsByMaintenance_id(maintenance_id);
 	}
@@ -59,10 +59,19 @@ public class FlightController {
 	public ResponseEntity<String> insertFlightDetails(@RequestBody FlightDetails flightDetails)
 	{
 		System.out.println(flightDetails);
-		String addStatus="{\"Status\":\"Success\"}";
+		String addStatus="";
 		ResponseEntity<String> newFlightEntity=null;
-		flightService.addFlightDetails(flightDetails);
-		newFlightEntity=new ResponseEntity<String>(addStatus,HttpStatus.CREATED);
+		boolean test=flightService.addFlightDetails(flightDetails);
+		if(test)
+		{
+			addStatus="{\"Status\":\"Success\"}";
+			newFlightEntity=new ResponseEntity<String>(addStatus,HttpStatus.CREATED);
+		}
+		else
+		{
+			addStatus="{\"Status\":\"Failure\"}";
+			newFlightEntity=new ResponseEntity<String>(addStatus,HttpStatus.NOT_IMPLEMENTED);
+		}
 		return newFlightEntity;
 	}
 	
@@ -78,7 +87,7 @@ public class FlightController {
 	}
 	
 	@DeleteMapping("/deleteflightdetails/{flight_id}")
-	public ResponseEntity<String> deleteflightdetails(@PathVariable int flight_id)
+	public ResponseEntity<String> deleteFlightDetails(@PathVariable int flight_id)
 	{
 		String deleteStatus="{\"Status\":\"Success\"}";
 		ResponseEntity<String> newMaintenanceEntity=null;
@@ -89,7 +98,7 @@ public class FlightController {
 	}
 	
 	@DeleteMapping("/deletemaintenancedetails/{maintenance_id}")
-	public ResponseEntity<String> maintenancedetails(@PathVariable int maintenance_id)
+	public ResponseEntity<String> deleteMaintenanceDetails(@PathVariable int maintenance_id)
 	{
 		String deleteStatus="{\"Status\":\"Success\"}";
 		ResponseEntity<String> newMaintenanceEntity=null;
@@ -98,5 +107,17 @@ public class FlightController {
 		return newMaintenanceEntity;
 
 	}
+	
+	@PostMapping("/updatemaintenancestatus/{maintenance_id}")
+	public ResponseEntity<String> updateMaintenanceDetails(@PathVariable int maintenance_id,@RequestBody FlightMaintenance flightMaintenance)
+	{
+		String deleteStatus="{\"Status\":\"Success\"}";
+		ResponseEntity<String> newMaintenanceEntity=null;
+		flightService.updateMaintenanceDetails(maintenance_id, flightMaintenance);
+		newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		return newMaintenanceEntity;
+	}
+	
+	
 
 }
