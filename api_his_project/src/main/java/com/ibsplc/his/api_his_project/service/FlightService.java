@@ -14,10 +14,10 @@ public interface FlightService {
 	public List<FlightExpandedInfo> getExpandedFlightInfo();
 	
 	public boolean addFlightDetails(FlightDetails flightDetails);
-	public void addMaintenanceDetails(FlightMaintenance flightMaintenance);
-	public void deleteFlightDetails(int flight_id);
-	public void deleteMaintenanceDetails(int maintenance_id);
+	public boolean addMaintenanceDetails(FlightMaintenance flightMaintenance);
+	public boolean deleteFlightDetails(int flight_id);
+	public boolean deleteMaintenanceDetails(int maintenance_id);
 	
-	public void updateMaintenanceDetails(int maintenance_id,FlightMaintenance flightMaintenance);
+	public boolean updateMaintenanceDetails(int maintenance_id,FlightMaintenance flightMaintenance);
 
 }

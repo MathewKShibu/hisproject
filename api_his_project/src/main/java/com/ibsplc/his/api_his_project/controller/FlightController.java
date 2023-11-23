@@ -18,7 +18,7 @@ import com.ibsplc.his.api_his_project.model.FlightExpandedInfo;
 import com.ibsplc.his.api_his_project.model.FlightMaintenance;
 import com.ibsplc.his.api_his_project.service.FlightService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class FlightController {
 	
@@ -79,20 +79,38 @@ public class FlightController {
 	public  ResponseEntity<String> insertMaintenanceDetails(@RequestBody FlightMaintenance flightMaintenance)
 	{
 		System.out.println(flightMaintenance);
-		String addStatus="{\"Status\":\"Success\"}";
+		String addStatus="";
 		ResponseEntity<String> newMaintenanceEntity=null;
-		flightService.addMaintenanceDetails(flightMaintenance);
-		newMaintenanceEntity=new ResponseEntity<String>(addStatus,HttpStatus.CREATED);
+		boolean test=flightService.addMaintenanceDetails(flightMaintenance);
+		if(test)
+		{
+			addStatus="{\"Status\":\"Success\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(addStatus,HttpStatus.CREATED);
+		}
+		else
+		{
+			addStatus="{\"Status\":\"Failure\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(addStatus,HttpStatus.NOT_IMPLEMENTED);
+		}
 		return newMaintenanceEntity;
 	}
 	
 	@DeleteMapping("/deleteflightdetails/{flight_id}")
 	public ResponseEntity<String> deleteFlightDetails(@PathVariable int flight_id)
 	{
-		String deleteStatus="{\"Status\":\"Success\"}";
+		String deleteStatus="";
 		ResponseEntity<String> newMaintenanceEntity=null;
-		flightService.deleteFlightDetails(flight_id);
-		newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		boolean test=flightService.deleteFlightDetails(flight_id);
+		if(test)
+		{
+			deleteStatus="{\"Status\":\"Success\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		}
+		else
+		{
+			deleteStatus="{\"Status\":\"Failure\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.NOT_IMPLEMENTED);
+		}
 		return newMaintenanceEntity;
 
 	}
@@ -100,10 +118,19 @@ public class FlightController {
 	@DeleteMapping("/deletemaintenancedetails/{maintenance_id}")
 	public ResponseEntity<String> deleteMaintenanceDetails(@PathVariable int maintenance_id)
 	{
-		String deleteStatus="{\"Status\":\"Success\"}";
+		String deleteStatus="";
 		ResponseEntity<String> newMaintenanceEntity=null;
-		flightService.deleteMaintenanceDetails(maintenance_id);
-		newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		boolean test=flightService.deleteMaintenanceDetails(maintenance_id);
+		if(test)
+		{
+			deleteStatus="{\"Status\":\"Success\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		}
+		else
+		{
+			deleteStatus="{\"Status\":\"Failure\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.NOT_IMPLEMENTED);
+		}
 		return newMaintenanceEntity;
 
 	}
@@ -111,10 +138,19 @@ public class FlightController {
 	@PostMapping("/updatemaintenancestatus/{maintenance_id}")
 	public ResponseEntity<String> updateMaintenanceDetails(@PathVariable int maintenance_id,@RequestBody FlightMaintenance flightMaintenance)
 	{
-		String deleteStatus="{\"Status\":\"Success\"}";
+		String updateStatus="";
 		ResponseEntity<String> newMaintenanceEntity=null;
-		flightService.updateMaintenanceDetails(maintenance_id, flightMaintenance);
-		newMaintenanceEntity=new ResponseEntity<String>(deleteStatus,HttpStatus.OK);
+		boolean test=flightService.updateMaintenanceDetails(maintenance_id, flightMaintenance);
+		if(test)
+		{
+			updateStatus="{\"Status\":\"Success\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(updateStatus,HttpStatus.OK);
+		}
+		else
+		{
+			updateStatus="{\"Status\":\"Failure\"}";
+			newMaintenanceEntity=new ResponseEntity<String>(updateStatus,HttpStatus.NOT_IMPLEMENTED);
+		}
 		return newMaintenanceEntity;
 	}
 	

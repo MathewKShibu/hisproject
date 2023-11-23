@@ -21,7 +21,7 @@ public interface GetMapper {
 	//@Select("Select * from flight_details where flight_id=#{flight_id}")
 	//FlightDetails getFlightDetailsByFlight_id( @Param("flight_id")int flight_id);
 	
-	@Select("Select * from fligh_maintenance")
+	@Select("Select * from flight_maintenance")
 	List<FlightMaintenance> getFlightMaintenanceDetails();
 	
 	//@Select("Select * from flight_maintenance where maintenance_id=#{maintenance_id}")

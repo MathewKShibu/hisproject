@@ -133,54 +133,68 @@ public class FlightServiceImpl implements FlightService {
 	}
 	
     @Override
-	public void addMaintenanceDetails(FlightMaintenance flightMaintenance) {
+	public boolean addMaintenanceDetails(FlightMaintenance flightMaintenance) {
+    	boolean test;
     	try
     	{
+    		test=true;
     		getMapper.addMaintenanceDetails(flightMaintenance);	
     	}
     	catch(Exception e)
     	{
+    		test=false;
     		e.printStackTrace();
     	}
+    	return test;
 	}
 
 	@Override
-	public void deleteFlightDetails(int flight_id) {
+	public boolean deleteFlightDetails(int flight_id) {
+		boolean test;
 		try
 		{
+			test=true;
 			getMapper.deleteFlightDetails(flight_id);
 		}
 		catch(Exception e)
 		{
+			test=false;
 			e.printStackTrace();
 		}
-		
+		return test;
 	}
 
 	@Override
-	public void deleteMaintenanceDetails(int maintenance_id) {
+	public boolean deleteMaintenanceDetails(int maintenance_id) {
+		boolean test;
 		try
 		{
+			test=true;
 			getMapper.deleteMaintenanceDetails(maintenance_id);
 		}
 		catch(Exception e)
 		{
+			test=false;
 			e.printStackTrace();
 		}
-		
+		return test;
 		
 	}
 
 	@Override
-	public void updateMaintenanceDetails(int maintenance_id, FlightMaintenance flightMaintenance) {
+	public boolean updateMaintenanceDetails(int maintenance_id, FlightMaintenance flightMaintenance) {
+		boolean test;
 		try
 		{
+			test=true;
 			getMapper.updateMaintenanceDetails(maintenance_id, flightMaintenance);
 		}
 		catch(Exception e)
 		{
+			test=false;
 			e.printStackTrace();
 		}
+		return test;
 		
 	}
 }
