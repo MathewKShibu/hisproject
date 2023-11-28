@@ -15,7 +15,7 @@ import com.ibsplc.his.api_his_project.model.FlightMaintenance;
 
 @Mapper
 public interface GetMapper {
-	@Select("Select * from flight_details" )
+	@Select("Select * from flight_details" )//used for both getFlight functions
 	List<FlightDetails> getFlightDetails();
 	
 	//@Select("Select * from flight_details where flight_id=#{flight_id}")
