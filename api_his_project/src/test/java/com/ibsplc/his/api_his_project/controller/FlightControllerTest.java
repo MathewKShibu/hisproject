@@ -26,22 +26,6 @@ public class FlightControllerTest
 		@Autowired
 		private FlightController flightController;
 	
-	 @Test
-	    public void testUpdateMaintenanceDetails() {
-	        // Arrange
-	        int maintenance_id =1 ;
-	        
-
-	        FlightMaintenance flightMaintenance = new FlightMaintenance(1,1,"Routine","2023-01-10",3,20);
-	        when(flightService.updateMaintenanceDetails(maintenance_id, flightMaintenance)).thenReturn(true);
-	 
-	        // Act
-	        ResponseEntity<String> responseEntity = flightController.updateMaintenanceDetails(maintenance_id, flightMaintenance);
-	 
-	        // Assert
-	        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-	        assertEquals("{\"Status\":\"Success\"}", responseEntity.getBody());
-	    }
 	 
 	 @Test
 	 	public void testShowFlightDetails() {
@@ -99,4 +83,21 @@ public class FlightControllerTest
 		 int maintenance_id=1;
 		 when(flightService.deleteMaintenanceDetails(maintenance_id)).thenReturn(true);
 	 }
+	 
+	 @Test
+	    public void testUpdateMaintenanceDetails() {
+	        // Arrange
+	        int maintenance_id =1 ;
+	        
+
+	        FlightMaintenance flightMaintenance = new FlightMaintenance(1,1,"Routine","2023-01-10",3,20);
+	        when(flightService.updateMaintenanceDetails(maintenance_id, flightMaintenance)).thenReturn(true);
+	 
+	        // Act
+	        ResponseEntity<String> responseEntity = flightController.updateMaintenanceDetails(maintenance_id, flightMaintenance);
+	 
+	        // Assert
+	        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+	        assertEquals("{\"Status\":\"Success\"}", responseEntity.getBody());
+	    }
 }
